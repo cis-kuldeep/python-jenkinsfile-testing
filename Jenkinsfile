@@ -74,26 +74,26 @@ pipeline {
             }
         }
 
-        // stage ('Unit Tests') {
-        //     steps {
-        //         sh """
-        //             #. venv/bin/activate
-        //             export PATH=${VIRTUAL_ENV}/bin:${PATH}
-        //             make unittest || true
-        //         """
-        //     }
+        stage ('Unit Tests') {
+            steps {
+                sh """
+                    #. venv/bin/activate
+                    export PATH=${VIRTUAL_ENV}/bin:${PATH}
+                    make unittest || true
+                """
+            }
 
-        //     post {
-        //         always {
-        //             junit keepLongStdio: true, testResults: 'report/nosetests.xml'
-        //             publishHTML target: [
-        //                 reportDir: 'report/coverage',
-        //                 reportFiles: 'index.html',
-        //                 reportName: 'Coverage Report - Unit Test'
-        //             ]
-        //         }
-        //     }
-        // }
+            post {
+                always {
+                    junit keepLongStdio: true, testResults: 'report/nosetests.xml'
+                    publishHTML target: [
+                        reportDir: 'report/coverage',
+                        reportFiles: 'index.html',
+                        reportName: 'Coverage Report - Unit Test'
+                    ]
+                }
+            }
+        }
 
         stage ('System Tests') {
             steps {
@@ -108,7 +108,7 @@ pipeline {
 
             post {
                 always {
-                    junit keepLongStdio: true, testResults: 'report/nosetests.xml'
+                    junit keepLongStdio: true, testResults: 'report/*.xml'
                     publishHTML target: [
                         reportDir: 'report/coverage',
                         reportFiles: 'index.html',
