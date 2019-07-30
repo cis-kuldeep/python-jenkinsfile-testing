@@ -90,7 +90,7 @@ sdist: clean
 tests: unittest systest coverage_report
 
 unittest: clean
-	nosetests $(NOSE_OPTS) tests/unit/*
+	nosetests $(NOSE_OPTS) tests/unit/*.xml
 
 systest: clean
 	nosetests $(NOSE_OPTS) tests/system/*
